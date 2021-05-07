@@ -99,6 +99,9 @@ load_time_dimension_table = LoadDimensionOperator(
     append_only = False
 )
 
+checks=[{'check_sql': "SELECT COUNT(*) FROM users WHERE userid is null", 'expected_result': 0, comparison: '>'},
+        {'check_sql': "SELECT COUNT(*) FROM songs WHERE songid is null", 'expected_result': 0, comparison: '>'}]
+
 run_quality_checks = DataQualityOperator(
     task_id = 'Run_data_quality_checks',
     dag = dag,
